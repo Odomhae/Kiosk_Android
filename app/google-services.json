@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "807294093890",
+    "project_id": "kiosk-android-a9878",
+    "storage_bucket": "kiosk-android-a9878.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807294093890:android:75b2c117456db357b23bdb",
+        "android_client_info": {
+          "package_name": "com.odom.orderkiosk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMcf6Fe7ikjAMj2qh1l5F8BcE9WYr9ccQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
