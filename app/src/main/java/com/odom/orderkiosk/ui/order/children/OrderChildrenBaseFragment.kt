@@ -316,30 +316,30 @@ open class OrderChildrenBaseFragment : Fragment(), FragmentResultListener {
 
     protected fun goToOrderConfirmation(orderList: OrderList) {
         parentFragmentManager.beginTransaction()
-//            .replace(
-//                R.id.child_fragment_container,
-//                getInstance(orderList, ::OrderConfirmationFragment)
-//            ) todo
+            .replace(
+                R.id.child_fragment_container,
+                getInstance(orderList, ::OrderConfirmationFragment)
+            )
             .addToBackStack(null)
             .commit()
     }
 
     protected fun goToPaymentFragment(orderList: OrderList) {
         parentFragmentManager.beginTransaction()
-//            .replace(
-//                R.id.child_fragment_container,
-//                getInstance(orderList, ::PaymentFragment) todo
-//            )
+            .replace(
+                R.id.child_fragment_container,
+                getInstance(orderList, ::PaymentFragment)
+            )
             .addToBackStack(null)
             .commit()
     }
     // 로직: 신규 화면 "주문 완료 되었습니다" 만듦 - 기존 결제 후 주문 완료 창으로 이동되도록 처리
     protected fun goToOrderCompleteFragment(orderList: OrderList) {
         parentFragmentManager.beginTransaction()
-//            .replace(
-//                R.id.child_fragment_container,
-//                getInstance(orderList, ::OrderCompleteFragment) // todo jihoon
-//            )
+            .replace(
+                R.id.child_fragment_container,
+                getInstance(orderList, ::OrderCompleteFragment)
+            )
             .addToBackStack(null)
             .commit()
     }

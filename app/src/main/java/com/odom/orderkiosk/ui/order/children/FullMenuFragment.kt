@@ -2,19 +2,26 @@ package com.odom.orderkiosk.ui.order.children
 
 import android.icu.text.NumberFormat
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.snapshots
 import com.odom.orderkiosk.databinding.FragmentFullMenuBinding
 import com.odom.orderkiosk.databinding.ItemFoodBinding
 import com.odom.orderkiosk.model.Food
+import com.odom.orderkiosk.model.Order
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 class FullMenuFragment : OrderChildrenBaseFragment() {
@@ -33,6 +40,106 @@ class FullMenuFragment : OrderChildrenBaseFragment() {
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        with(binding) {
+            toolbar.setOnClickListener { requireActivity().onBackPressed() }
+
+            viewPager.apply {
+                offscreenPageLimit = 3
+                isUserInputEnabled = false
+                adapter = this@FullMenuFragment.adapter.apply {
+                    onItemClickListener = {
+                        next(orderList.copy().apply {
+                            elements.add(
+                                Order(
+                                    it,
+//                                    if (it.options.size <= 1) "" else null
+                                    if (it.options.size <= 1) it.name else null
+                                )
+                            )
+                        })
+                    }
+                }
+            }
+
+            tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    val position = tab?.position ?: return
+                    if (position >= 0) {
+                        viewPager.currentItem = position
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                }
+            })
+        }
+
+        lifecycleScope.launch {
+            db.collection("foods")
+                .orderBy("type")
+                .snapshots()
+                .collectLatest {
+                    val foods =
+                        it.documents.mapNotNull { it.toObject(Food::class.java) }
+                            .groupBy { it.type }
+
+                    Log.d("TTT","음식 타입: ${foods.size}")
+
+
+                    val items = listOf(
+                        Food.Type.HAMBURGER, Food.Type.SIDE_MENU, Food.Type.BEVERAGE,
+                        Food.Type.DESSERT
+                    ).map {
+                        if (foods.containsKey(it)) {
+                            return@map it to foods[it]!!
+                        } else {
+                            return@map it to listOf()
+                        }
+                    }
+                    foods.forEach { (foodType, foodList) ->
+                        Log.d("TTT","음식 타입: $foodType")
+                        foodList.forEach { foodItem ->
+                            Log.d("TTT","음식 이름: ${foodItem.name}")
+                            Log.d("TTT","옵션: ${foodItem.options}")
+                            Log.d("TTT","이미지: ${foodItem.image}")
+                        }
+                    }
+                    copiedFoods = foods.values.flatten() // 10.17 추가부분
+                    copiedFoods!!.forEach {
+                        Log.d("TTT2","음식 이름: ${it.name}")
+                        Log.d("TTT2","옵션: ${it.options}")
+                        Log.d("TTT2","이미지: ${it.image}")
+                    }
+                    Log.d("TEST", copiedFoods.toString())
+                    adapter.submitList(items)
+
+                    // glacier : FullMenuFragment 진입시 argument를 입력받도록 설정했습니다.
+                    // 변경사항은 OrderChilderenBaseFramgent에서 backToFullMenuFragment 함수 부분 보시면 됩니다.
+                    // FullMenuFrag 진입 후, db에서 음식정보를 모두 로드 하면 argument를 들고와서 체크합니다.
+                    arguments?.getString("mode")?.let {
+                        if(it != "none") {
+                            // 만약 argument가 none이 아니면 (음성인식 내용이 맞으면) 다음 스텝으로 진행
+                            //goToNextStep(it)
+                            arguments = null
+                        } else {
+                            // 만약 argument가 null이거나 none이면 (아니에요 눌러서 돌아온경우 혹은 정상 진입) 주문문구 띄우기
+                            speakOut("주문하고 싶으신 메뉴가 있나요? 주문하시려면 마이크버튼을 누르세요 ")  //원래는 주문하고 싶으신 메뉴가 있나요? 였음
+                        }
+                    } ?: run {
+                        speakOut("주문하고 싶으신 메뉴가 있나요? 주문하시려면 마이크버튼을 누르세요 ")  //원래는 주문하고 싶으신 메뉴가 있나요? 였음
+                    }
+                }
+        }
+
+
     }
 
 
