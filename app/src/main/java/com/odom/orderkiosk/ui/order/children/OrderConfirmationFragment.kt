@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentOrderConfirmationBinding
 import com.odom.orderkiosk.databinding.ItemPriceBinding
 import java.text.NumberFormat
@@ -111,7 +112,7 @@ class OrderConfirmationFragment : OrderChildrenBaseFragment() {
             }
         }
 
-        speakOut("주문하신 메뉴가 일치하면 '맞아' 아니면 '아니야' 라고 말씀해 주세요.")
+        speakOut(resources.getString(R.string.ask_confirmation))
     }
 
     override fun onRecognized(message: String) {

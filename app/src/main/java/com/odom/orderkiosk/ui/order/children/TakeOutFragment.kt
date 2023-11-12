@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentTakeOutBinding
 
 //region Option fragment
@@ -37,7 +38,7 @@ class TakeOutFragment : OrderChildrenBaseFragment() {
             }
         }
 
-        speakOut("포장하시나요? 매장에서 식사하시나요?")
+        speakOut(resources.getString(R.string.ask_takeout))
     }
 
     override fun onRecognized(message: String) {

@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
+import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentFullMenuBinding
 import com.odom.orderkiosk.databinding.ItemFoodBinding
 import com.odom.orderkiosk.model.Food
@@ -46,8 +47,6 @@ class FullMenuFragment : OrderChildrenBaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            toolbar.setOnClickListener { requireActivity().onBackPressed() }
-
             viewPager.apply {
                 offscreenPageLimit = 3
                 isUserInputEnabled = false
@@ -91,9 +90,6 @@ class FullMenuFragment : OrderChildrenBaseFragment() {
                         it.documents.mapNotNull { it.toObject(Food::class.java) }
                             .groupBy { it.type }
 
-                    Log.d("TTT","음식 타입: ${foods.size}")
-
-
                     val items = listOf(
                         Food.Type.HAMBURGER, Food.Type.SIDE_MENU, Food.Type.BEVERAGE,
                         Food.Type.DESSERT
@@ -131,10 +127,10 @@ class FullMenuFragment : OrderChildrenBaseFragment() {
                             arguments = null
                         } else {
                             // 만약 argument가 null이거나 none이면 (아니에요 눌러서 돌아온경우 혹은 정상 진입) 주문문구 띄우기
-                            speakOut("주문하고 싶으신 메뉴가 있나요? 주문하시려면 마이크버튼을 누르세요 ")  //원래는 주문하고 싶으신 메뉴가 있나요? 였음
+                            speakOut(resources.getString(R.string.order_start))
                         }
                     } ?: run {
-                        speakOut("주문하고 싶으신 메뉴가 있나요? 주문하시려면 마이크버튼을 누르세요 ")  //원래는 주문하고 싶으신 메뉴가 있나요? 였음
+                        speakOut(resources.getString(R.string.order_start))
                     }
                 }
         }

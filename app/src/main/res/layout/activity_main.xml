@@ -15,6 +15,7 @@
         android:id="@+id/mic_button"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:visibility="gone"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="16dp"
         android:src="@drawable/ic_mic_state_24"

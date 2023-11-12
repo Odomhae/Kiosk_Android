@@ -1,6 +1,7 @@
 package com.odom.orderkiosk
 
 import android.content.Intent
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.RecognitionListener
@@ -9,7 +10,7 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.odom.orderkiosk.databinding.ActivityMainBinding
-import com.odom.orderkiosk.ui.HomeFragment
+import com.odom.orderkiosk.ui.order.OrderFragment
 import kotlinx.coroutines.Job
 import java.util.Locale
 import java.util.UUID
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity(), RecognitionListener, TextToSpeech.OnIn
         textToSpeech = TextToSpeech(this, this)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, HomeFragment())
+            .replace(R.id.fragment_container, OrderFragment())
             .commit()
     }
 
@@ -54,6 +55,10 @@ class MainActivity : AppCompatActivity(), RecognitionListener, TextToSpeech.OnIn
                     }
 
                     if (text == null) return
+
+                    if (Resources.getSystem().configuration.locale != Locale.KOREA) {
+                        textToSpeech.language = Locale.US
+                    }
 
                     textToSpeech.speak(
                         text,

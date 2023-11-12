@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">OrderKiosk</string>
+
+    <string name="order_completed">Order is completed.</string>
+    <string name="order_start">Please click the menu you wish to order</string>
+    <string name="ask_takeout">For here or to go?</string>
+    <string name="ask_confirmation">Is ordered correct?</string>
+
+
+    <string name="menu_hamberger">Hamberger</string>
+    <string name="menu_side">Side</string>
+    <string name="menu_beverage">Beverage</string>
+    <string name="menu_dessert">Dessert</string>
+
+    <string name="takeout">For here</string>
+    <string name="store">To go</string>
 </resources>

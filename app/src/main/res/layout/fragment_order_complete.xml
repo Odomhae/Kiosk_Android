@@ -65,16 +65,8 @@
                             android:layout_marginTop="8dp"
                             android:textAppearance="?attr/textAppearanceBody1"
                             android:textStyle="bold"
+                            android:layout_gravity="center"
                             tools:text="@tools:sample/lorem" />
-
-                        <TextView
-                            android:id="@+id/order_complete_text_help_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:textAppearance="?attr/textAppearanceBody1"
-                            android:textStyle="bold"
-                            tools:text="(10초 뒤 메인화면으로 자동 이동됩니다.)" />
 
                     </LinearLayout>
 
