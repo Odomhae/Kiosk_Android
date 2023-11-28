@@ -6,6 +6,10 @@
     <string name="ask_takeout">For here or to go?</string>
     <string name="ask_confirmation">Is ordered correct?</string>
 
+    <string name="title_confirm">Order Confirmation</string>
+    <string name="title_complete">Order Completed</string>
+
+
 
     <string name="menu_hamberger">Hamberger</string>
     <string name="menu_side">Side</string>
@@ -14,4 +18,11 @@
 
     <string name="takeout">For here</string>
     <string name="store">To go</string>
+    <string name="order_number">Order number</string>
+
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="go_main">Start Order</string>
+
 </resources>

@@ -29,7 +29,10 @@ class OrderCompleteFragment : OrderChildrenBaseFragment() {
         with(binding) {
             toolbar.setOnClickListener { parentFragmentManager.popBackStack() }
 
-            orderCompleteTextView.text = resources.getString(R.string.order_completed)
+            val random = (1000..9999).random()  // 1000 <= n <= 9999
+
+            orderCompleteTextView.text = resources.getString(R.string.order_number) + ":  $random"
+            orderCompleteTextView2.text = resources.getString(R.string.order_completed)
 
             // 자동으로 10초뒤 이동
             val timer = Timer()

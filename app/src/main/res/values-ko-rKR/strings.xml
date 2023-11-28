@@ -7,6 +7,9 @@
     <string name="ask_takeout">포장하시나요? 매장에서 드시나요?</string>
     <string name="ask_confirmation">주문하신 메뉴가 맞으신가요?</string>
 
+    <string name="title_confirm">주문 확인</string>
+    <string name="title_complete">주문 완료</string>
+
     <string name="menu_hamberger">햄버거</string>
     <string name="menu_side">사이드</string>
     <string name="menu_beverage">음료</string>
@@ -14,6 +17,11 @@
 
     <string name="takeout">포장</string>
     <string name="store">매장</string>
+    <string name="order_number">주문번호</string>
+
+    <string name="yes">예</string>
+    <string name="no">아니요</string>
+    <string name="go_main">처음으로</string>
 
 
 </resources>
