@@ -82,7 +82,7 @@ class FullMenuFragment : OrderChildrenBaseFragment() {
         }
 
         lifecycleScope.launch {
-            db.collection("foods")
+            db.collection(getString(R.string.db_name))
                 .orderBy("type")
                 .snapshots()
                 .collectLatest {
@@ -237,13 +237,13 @@ class FullMenuFragment : OrderChildrenBaseFragment() {
                             textView.text = if (item.options.size == 1) {
                                 String.format(
                                     Locale.KOREA,
-                                    "%s원",
+                                    holder.itemView.context.getString(R.string.price_format1),
                                     NumberFormat.getInstance(Locale.KOREA).format(price)
                                 )
                             } else {
                                 String.format(
                                     Locale.KOREA,
-                                    "%s: %s원",
+                                    holder.itemView.context.getString(R.string.price_format3),
                                     option,
                                     NumberFormat.getInstance(Locale.KOREA).format(price)
                                 )

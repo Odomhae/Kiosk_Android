@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="?attr/homeAsUpIndicator"
-            app:title="결제하기"
+            app:title="@string/select_payment"
             app:titleCentered="true" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -63,7 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="카드결제"
+                    android:text="@string/credit_card"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:textColor="?attr/colorOnPrimary" />
 
@@ -84,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="쿠폰결제"
+                    android:text="@string/coupon"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:textColor="?attr/colorOnPrimary" />
 

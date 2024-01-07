@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentPaymentBinding
 import java.text.NumberFormat
 import java.util.Locale
@@ -43,13 +44,7 @@ class PaymentFragment : OrderChildrenBaseFragment() {
 
             totalPrice += price * count
             //     totalPrice += price2 * count2
-
-            priceTextView.text = String.format(
-                Locale.KOREA,
-                "총 결제 금액 : %s원",
-//                NumberFormat.getInstance(Locale.KOREA).format(orderList.elements.sumOf { it.price })
-                NumberFormat.getInstance(Locale.KOREA).format(totalPrice)
-            )
+            priceTextView.text = String.format(getString(R.string.total_amount), NumberFormat.getInstance(Locale.KOREA).format(totalPrice))
 
             option1Container.setOnClickListener {
                 //TODO: 카드 결제

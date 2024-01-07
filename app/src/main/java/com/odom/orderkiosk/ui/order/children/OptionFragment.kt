@@ -9,6 +9,7 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
+import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentOptionsBinding
 import com.odom.orderkiosk.databinding.ItemOptionBinding
 import com.odom.orderkiosk.model.Food
@@ -32,15 +33,15 @@ class OptionFragment : OrderChildrenBaseFragment() {
 
         with(binding) {
             toolbar.setOnClickListener { backToFullMenuFragment("none") }
-            toolbar.title = food.name + " 옵션 선택"
+            toolbar.title = food.name +  " " + getString(R.string.select_option)
 
             initOptionButtons()
         }
         Log.d("SSS","food Type = " + food.type + "  Food.Type.HAMBURGER = " + Food.Type.HAMBURGER)
         if (food.type == Food.Type.HAMBURGER) {
-            speakOut("${food.name} 주문합니다. 단품으로 하시겠어요. 세트로 하시겠어요?")
+            speakOut(food.name + resources.getString(R.string.selected_single_combo))
         } else {
-            speakOut("${food.name} 주문합니다.")
+            speakOut(food.name + resources.getString(R.string.selected))
         }
     }
 

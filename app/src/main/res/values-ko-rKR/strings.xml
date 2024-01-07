@@ -2,10 +2,15 @@
 <resources>
     <string name="app_name">OrderKiosk</string>
 
+    <!-- fireStore db 이름 -->
+    <string name="db_name">foods</string>
+
     <string name="order_completed">주문이 완료되었습니다.</string>
     <string name="order_start">주문하고 싶으신 메뉴를 클릭해주세요</string>
     <string name="ask_takeout">포장하시나요? 매장에서 드시나요?</string>
     <string name="ask_confirmation">주문하신 메뉴가 맞으신가요?</string>
+    <string name="ask_side_menu">사이드 메뉴는 어떤걸로 하시겠어요?</string>
+    <string name="ask_beverage">음료는 어떤걸로 하시겠어요?</string>
 
     <string name="title_confirm">주문 확인</string>
     <string name="title_complete">주문 완료</string>
@@ -14,14 +19,31 @@
     <string name="menu_side">사이드</string>
     <string name="menu_beverage">음료</string>
     <string name="menu_dessert">디저트</string>
+    <string name="menu_single">단품</string>
+    <string name="menu_combo">세트</string>
 
     <string name="takeout">포장</string>
     <string name="store">매장</string>
     <string name="order_number">주문번호</string>
+    <string name="credit_card">카드</string>
+    <string name="coupon">쿠폰</string>
+    <string name="price_format1">%s원</string>
+    <string name="price_format2">%s원 x %s개 = %s원</string>
+    <string name="price_format3">%s: %s원</string>
+
+
+    <string name="total_amount">총 주문금액 : %s원</string>
+
 
     <string name="yes">예</string>
     <string name="no">아니요</string>
     <string name="go_main">처음으로</string>
+    <string name="go_next">다음</string>
+    <string name="select_option">옵션 선택</string>
+    <string name="select_quantity">수량 선택</string>
+    <string name="select_payment">결제수단 선택</string>
 
+    <string name="selected">주문합니다</string>
+    <string name="selected_single_combo">주문합니다. 단품으로 하시겠어요. 세트로 하시겠어요?</string>
 
 </resources>

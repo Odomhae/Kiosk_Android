@@ -41,7 +41,7 @@ class OrderConfirmationFragment : OrderChildrenBaseFragment() {
 //                    foodNameTextView.text = order.food.name
                     foodNameTextView.text = order.food?.name
                     optionTextView.text = if (order.sideMenu == null) {
-                        "단품"
+                        getString(R.string.menu_single)
                     } else {
                         "${order.sideMenu!!.name} ${order.beverage!!.name}"
                     }
@@ -73,7 +73,7 @@ class OrderConfirmationFragment : OrderChildrenBaseFragment() {
                 "%s원",
                 NumberFormat.getInstance(Locale.KOREA).format(orderList.elements.sumOf { it.price })
                  */
-                "%s원 x %s개 = %s원",
+                getString(R.string.price_format2),
                 NumberFormat.getInstance(Locale.KOREA).format(price),
                 NumberFormat.getInstance(Locale.KOREA).format(count),
                 NumberFormat.getInstance(Locale.KOREA).format(price * count)
@@ -101,7 +101,8 @@ class OrderConfirmationFragment : OrderChildrenBaseFragment() {
             totalPrice += price * count
             // totalPrice += price2 * count2
             // NOTICE: 총 주문금액 추가 (할인/쿠폰 등 제외)
-            totalPriceTextView.text = "총 주문금액 : ${NumberFormat.getInstance(Locale.KOREA).format(totalPrice)}원"
+            /// String.format(getString(R.string.eat), count)
+            totalPriceTextView.text = String.format(getString(R.string.total_amount), NumberFormat.getInstance(Locale.KOREA).format(totalPrice))
 
             negativeButton.setOnClickListener {
                 backToFullMenuFragment("none")

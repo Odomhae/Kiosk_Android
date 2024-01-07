@@ -274,7 +274,7 @@ open class OrderChildrenBaseFragment : Fragment(), FragmentResultListener {
                 return it to IncompleteType.MainFoodOption
             }
 
-            if (it.food.type == Food.Type.HAMBURGER && it.option == "세트") {
+            if (it.food.type == Food.Type.HAMBURGER && it.option == getString(R.string.menu_combo)) {
                 if (it.sideMenu == null) {
                     return it to IncompleteType.HamburgerSetSideMenu
                 }

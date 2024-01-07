@@ -49,6 +49,7 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:minWidth="0dp"
+                    app:iconSize="40dp"
                     android:padding="8dp"
                     app:icon="@drawable/baseline_remove_24"
                     app:iconPadding="0dp" />
@@ -61,9 +62,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="1개"
+                android:text="1"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="40sp"
+                android:textSize="60sp"
                 android:textStyle="bold"
                 app:autoSizeMaxTextSize="40sp"
                 app:autoSizeStepGranularity="1sp" />
@@ -83,6 +84,7 @@
                     android:insetBottom="0dp"
                     android:minWidth="0dp"
                     android:padding="8dp"
+                    app:iconSize="40dp"
                     app:icon="@drawable/baseline_add_48"
                     app:iconPadding="0dp" />
 
@@ -99,10 +101,11 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:padding="16dp"
-            android:text="다음"
+            android:text="@string/go_next"
             android:textSize="24sp"
             android:textStyle="bold"
             app:iconPadding="0dp"
+            android:layout_margin="10dp"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

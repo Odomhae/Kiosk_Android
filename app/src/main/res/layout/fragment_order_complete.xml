@@ -65,6 +65,8 @@
                             android:layout_marginTop="8dp"
                             android:textAppearance="?attr/textAppearanceBody1"
                             android:textStyle="bold"
+                            android:textSize="20dp"
+                            android:textColor="@android:color/holo_red_light"
                             android:layout_gravity="center"
                             tools:text="@tools:sample/lorem" />
 
