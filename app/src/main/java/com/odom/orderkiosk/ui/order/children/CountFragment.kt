@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentCountBinding
 
 //region Option fragment
@@ -27,7 +28,7 @@ class CountFragment : OrderChildrenBaseFragment() {
 
         with(binding) {
             toolbar.setOnClickListener { parentFragmentManager.popBackStack() }
-            toolbar.title = food.name + " 갯수 선택"
+            toolbar.title = food.name + " " + getString(R.string.select_quantity)
 
             minusButton.setOnClickListener {
                 var count = countTextView.text.toString().removeSuffix("개").toInt()
@@ -35,7 +36,7 @@ class CountFragment : OrderChildrenBaseFragment() {
                     count -= 1
                 }
 
-                countTextView.text = "${count}개"
+                countTextView.text = "$count"
             }
             // 10개 미만만 주문되도록 하였고 10개 이상은 주문이 안되도록 함 -
             plusButton.setOnClickListener {
@@ -47,7 +48,7 @@ class CountFragment : OrderChildrenBaseFragment() {
                 }
                 count += 1
 
-                countTextView.text = "${count}개"
+                countTextView.text = "$count"
             }
 
             nextButton.setOnClickListener {
@@ -56,7 +57,7 @@ class CountFragment : OrderChildrenBaseFragment() {
             }
         }
 
-        speakOut("${food.name} 수량을 선택해 주세요.")
+        speakOut(food.name  + " " + getString(R.string.select_quantity))
     }
 
     private fun onSelectedCount(count: Int) {

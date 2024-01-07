@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
+import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentCategoryMenuBinding
 import com.odom.orderkiosk.databinding.ItemFoodBinding
 import com.odom.orderkiosk.model.Food
@@ -44,10 +45,10 @@ class CategoryMenuFragment : OrderChildrenBaseFragment() {
             toolbar.setOnClickListener { requireActivity().onBackPressed() }
             toolbar.title = when (type) {
                 IncompleteType.HamburgerSetSideMenu ->
-                    "${food.name} 세트 사이드 메뉴 선택"
+                    "${food.name} " + getString(R.string.menu_side)
 
                 IncompleteType.HamburgerSetBeverage ->
-                    "${food.name} 세트 음료 선택"
+                    "${food.name} " + getString(R.string.menu_beverage)
 
                 else -> ""
             }
@@ -60,7 +61,7 @@ class CategoryMenuFragment : OrderChildrenBaseFragment() {
         }
 
         lifecycleScope.launch {
-            db.collection("foods")
+            db.collection(getString(R.string.db_name))
                 .whereEqualTo(
                     "type",
                     if (type == IncompleteType.HamburgerSetSideMenu) Food.Type.SIDE_MENU.ordinal else Food.Type.BEVERAGE.ordinal
@@ -74,9 +75,9 @@ class CategoryMenuFragment : OrderChildrenBaseFragment() {
         }
 
         if (type == IncompleteType.HamburgerSetSideMenu) {
-            speakOut("${food.name} ${order.option} 사이드 메뉴는 어떤걸로 하시겠어요?")
+            speakOut("${food.name} ${order.option} " + getString(R.string.ask_side_menu))
         } else if (type == IncompleteType.HamburgerSetBeverage) {
-            speakOut("${food.name} ${order.option} 음료는 어떤걸로 하시겠어요?")
+            speakOut("${food.name} ${order.option} " + getString(R.string.ask_beverage))
         }
     }
 
@@ -168,13 +169,13 @@ class CategoryMenuFragment : OrderChildrenBaseFragment() {
                         textView.text = if (item.options.size == 1) {
                             String.format(
                                 Locale.KOREA,
-                                "%s원",
+                                holder.itemView.context.getString(R.string.price_format1),
                                 NumberFormat.getInstance(Locale.KOREA).format(price)
                             )
                         } else {
                             String.format(
                                 Locale.KOREA,
-                                "%s: %s원",
+                                holder.itemView.context.getString(R.string.price_format3),
                                 option,
                                 NumberFormat.getInstance(Locale.KOREA).format(price)
                             )
