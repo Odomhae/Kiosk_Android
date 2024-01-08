@@ -1,9 +1,13 @@
 package com.odom.orderkiosk.ui.order.children
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.play.core.review.ReviewException
+import com.google.android.play.core.review.ReviewManagerFactory
+import com.google.android.play.core.review.model.ReviewErrorCode
 import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentOrderCompleteBinding
 import java.util.Timer
@@ -49,6 +53,30 @@ class OrderCompleteFragment : OrderChildrenBaseFragment() {
         }
 
         speakOut(resources.getString(R.string.order_completed))
+
+        reviewApp()
+    }
+
+    private fun reviewApp() {
+        val manager = ReviewManagerFactory.create(requireContext())
+        val request = manager.requestReviewFlow()
+        request.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val reviewInfo = task.result
+                val flow = manager.launchReviewFlow(requireActivity(), reviewInfo)
+                flow.addOnCompleteListener {
+                    if (task.isSuccessful){
+                      Log.d("TAG" , "Review Success")
+
+                  } else {
+                      Log.d("TAG" , "Review Error")
+
+                  }
+                }
+
+            }
+        }
+
     }
 
 }

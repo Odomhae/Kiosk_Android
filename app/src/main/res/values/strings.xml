@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OrderKiosk</string>
+    <string name="app_name">Hamburger Kiosk</string>
 
     <!-- fireStore db 이름 -->
     <string name="db_name">foods_eng</string>

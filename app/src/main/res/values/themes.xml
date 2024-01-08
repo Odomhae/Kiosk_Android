@@ -5,7 +5,9 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.OrderKiosk" parent="Base.Theme.OrderKiosk" />
+    <style name="Theme.OrderKiosk" parent="Base.Theme.OrderKiosk" >
+        <item name="colorPrimary">@android:color/holo_orange_dark</item>
+    </style>
 
     <style name="OtherMessageCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.OtherMessage</item>

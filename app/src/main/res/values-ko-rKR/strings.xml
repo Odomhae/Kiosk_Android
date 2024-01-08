@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OrderKiosk</string>
+    <string name="app_name">햄버거 키오스크</string>
 
     <!-- fireStore db 이름 -->
     <string name="db_name">foods</string>
