@@ -39,9 +39,9 @@ class OptionFragment : OrderChildrenBaseFragment() {
         }
         Log.d("SSS","food Type = " + food.type + "  Food.Type.HAMBURGER = " + Food.Type.HAMBURGER)
         if (food.type == Food.Type.HAMBURGER) {
-            speakOut(food.name + resources.getString(R.string.selected_single_combo))
+            speakOut(food.name + " " + resources.getString(R.string.selected_single_combo))
         } else {
-            speakOut(food.name + resources.getString(R.string.selected))
+            speakOut(food.name + " " + resources.getString(R.string.selected))
         }
     }
 
