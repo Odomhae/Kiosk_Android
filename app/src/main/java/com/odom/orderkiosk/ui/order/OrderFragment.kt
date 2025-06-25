@@ -1,6 +1,7 @@
 package com.odom.orderkiosk.ui.order
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,10 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.odom.orderkiosk.BaseFragment
 import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentOrderBinding
@@ -30,6 +35,7 @@ class OrderFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     private val adapter = MessageAdapter()
+    lateinit var mAdView : AdView
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -42,12 +48,26 @@ class OrderFragment : BaseFragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.adView.resume()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentOrderBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    private fun loadBanner() {
+        mAdView = binding.adView
+
+        val adRequest = AdRequest.Builder().build()
+
+        // Start loading the ad in the background.
+        mAdView.loadAd(adRequest)
     }
 
     override fun onDestroyView() {
@@ -57,6 +77,10 @@ class OrderFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 배너 광고
+        MobileAds.initialize(requireContext()) {}
+        loadBanner()
 
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
 

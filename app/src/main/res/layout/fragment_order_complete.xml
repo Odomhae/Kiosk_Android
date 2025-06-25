@@ -111,6 +111,7 @@
                 android:insetBottom="0dp"
                 android:padding="16dp"
                 android:text="@string/go_main"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:cornerRadius="0dp"

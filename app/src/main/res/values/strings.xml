@@ -14,6 +14,13 @@
     <string name="title_confirm">Order Confirmation</string>
     <string name="title_complete">Order Completed</string>
 
+    <!--  admob -->
+    <string name="TEST_banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="TEST_admob_app_id"> ca-app-pub-3940256099942544~3347511713</string>
+
+    <string name="REAL_banner_ad_unit_id">ca-app-pub-6729344454320392/8286951411</string>
+    <string name="REAL_admob_app_id">ca-app-pub-6729344454320392~3724363216</string>
+
 
 
     <string name="menu_hamberger">Hamberger</string>

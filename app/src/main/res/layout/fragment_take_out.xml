@@ -52,7 +52,7 @@
                     android:gravity="center"
                     android:text="@string/takeout"
                     android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textColor="?attr/colorOnPrimary" />
+                    android:textColor="@color/white"/>
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -73,7 +73,7 @@
                     android:gravity="center"
                     android:text="@string/store"
                     android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textColor="?attr/colorOnPrimary" />
+                    android:textColor="@color/white" />
 
             </com.google.android.material.card.MaterialCardView>
 

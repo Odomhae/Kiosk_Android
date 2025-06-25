@@ -65,7 +65,7 @@
                     android:gravity="center"
                     android:text="@string/credit_card"
                     android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textColor="?attr/colorOnPrimary" />
+                    android:textColor="@color/white" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -86,7 +86,7 @@
                     android:gravity="center"
                     android:text="@string/coupon"
                     android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textColor="?attr/colorOnPrimary" />
+                    android:textColor="@color/white" />
 
             </com.google.android.material.card.MaterialCardView>
 

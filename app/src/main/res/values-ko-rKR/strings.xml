@@ -15,6 +15,13 @@
     <string name="title_confirm">주문 확인</string>
     <string name="title_complete">주문 완료</string>
 
+    <!--  admob -->
+    <string name="TEST_banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="TEST_admob_app_id"> ca-app-pub-3940256099942544~3347511713</string>
+
+    <string name="REAL_banner_ad_unit_id">ca-app-pub-6729344454320392/8286951411</string>
+    <string name="REAL_admob_app_id">ca-app-pub-6729344454320392~3724363216</string>
+
     <string name="menu_hamberger">햄버거</string>
     <string name="menu_side">사이드</string>
     <string name="menu_beverage">음료</string>

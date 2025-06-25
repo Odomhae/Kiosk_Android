@@ -52,6 +52,7 @@
                     app:iconSize="40dp"
                     android:padding="8dp"
                     app:icon="@drawable/baseline_remove_24"
+                    app:iconTint="@color/white"
                     app:iconPadding="0dp" />
 
             </FrameLayout>
@@ -86,6 +87,7 @@
                     android:padding="8dp"
                     app:iconSize="40dp"
                     app:icon="@drawable/baseline_add_48"
+                    app:iconTint="@color/white"
                     app:iconPadding="0dp" />
 
             </FrameLayout>
@@ -102,6 +104,7 @@
             android:insetBottom="0dp"
             android:padding="16dp"
             android:text="@string/go_next"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
             app:iconPadding="0dp"
