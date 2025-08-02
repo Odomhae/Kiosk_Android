@@ -1,19 +1,29 @@
 package com.odom.orderkiosk
 
+import android.app.UiModeManager
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.content.res.Resources
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.graphics.Insets
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.MutableLiveData
 import com.odom.orderkiosk.databinding.ActivityMainBinding
 import com.odom.orderkiosk.ui.order.OrderFragment
 import kotlinx.coroutines.Job
 import java.util.Locale
 import java.util.UUID
+
 
 class MainActivity : AppCompatActivity(), RecognitionListener, TextToSpeech.OnInitListener {
 
@@ -34,6 +44,27 @@ class MainActivity : AppCompatActivity(), RecognitionListener, TextToSpeech.OnIn
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, OrderFragment())
             .commit()
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+
+        val contentView: View = this.findViewById(android.R.id.content)
+        ViewCompat.setOnApplyWindowInsetsListener(contentView) { v, insets ->
+            val innerPadding: Insets = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            v.setPadding(0, innerPadding.top, 0, innerPadding.bottom)
+
+            insets
+        }
+
+
+        fun isSystemInDarkMode() = resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+
+        val isLightStatusBars = AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES
+        val compat = WindowInsetsControllerCompat(this.window, this.window.decorView)
+
+        compat.isAppearanceLightStatusBars = !isSystemInDarkMode()
+        compat.isAppearanceLightNavigationBars = isLightStatusBars
     }
 
     override fun onDestroy() {
