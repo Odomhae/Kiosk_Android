@@ -1,0 +1,113 @@
+[
+  {
+    "documentId": "hamburger1",
+    "type": 0,
+    "name": "빅맥",
+    "options": {
+      "단품": 5500,
+      "세트": 6900
+    },
+    "image": "bigmac",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "hamburger2",
+    "type": 0,
+    "name": "치즈버거",
+    "options": {
+      "단품": 4200,
+      "세트": 5600
+    },
+    "image": "cheeseburger",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "hamburger3",
+    "type": 0,
+    "name": "불고기버거",
+    "options": {
+      "단품": 4500,
+      "세트": 5900
+    },
+    "image": "bulgogi_burger",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "side1",
+    "type": 1,
+    "name": "감자튀김",
+    "options": {
+      "소": 2500,
+      "중": 3000,
+      "대": 3500
+    },
+    "image": "french_fries",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "side2",
+    "type": 1,
+    "name": "치킨너겟",
+    "options": {
+      "6조각": 3500,
+      "10조각": 5000
+    },
+    "image": "chicken_nuggets",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "side3",
+    "type": 1,
+    "name": "양념감자",
+    "options": {
+      "소": 3000,
+      "중": 3500,
+      "대": 4000
+    },
+    "image": "seasoned_potatoes",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "beverage1",
+    "type": 2,
+    "name": "콜라",
+    "options": {
+      "M": 2000,
+      "L": 2500
+    },
+    "image": "cola",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "beverage2",
+    "type": 2,
+    "name": "사이다",
+    "options": {
+      "M": 2000,
+      "L": 2500
+    },
+    "image": "sprite",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "beverage3",
+    "type": 2,
+    "name": "오렌지주스",
+    "options": {
+      "M": 2500,
+      "L": 3000
+    },
+    "image": "orange_juice",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "dessert2",
+    "type": 3,
+    "name": "애플파이",
+    "options": {
+      "1개": 2000
+    },
+    "image": "apple_pie",
+    "ambiguous": ""
+  }
+]

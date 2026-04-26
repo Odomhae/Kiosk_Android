@@ -1,7 +1,6 @@
 package com.odom.orderkiosk.model
 
 import android.os.Parcelable
-import com.google.firebase.firestore.PropertyName
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -9,7 +8,6 @@ import kotlinx.parcelize.Parcelize
 data class Food(
     var documentId: String = "",    // 고유 ID
 
-    @PropertyName("type")
     @SerializedName("type")
     private val _type: Int = 0,     // 타입 (햄버거: 0, 사이드 메뉴: 1, 음료: 2, 디저트: 3)
 

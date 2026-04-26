@@ -1,0 +1,113 @@
+[
+  {
+    "documentId": "hamburger1",
+    "type": 0,
+    "name": "Big Mac",
+    "options": {
+      "Single": 5500,
+      "Combo": 6900
+    },
+    "image": "bigmac",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "hamburger2",
+    "type": 0,
+    "name": "Cheeseburger",
+    "options": {
+      "Single": 4200,
+      "Combo": 5600
+    },
+    "image": "cheeseburger",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "hamburger3",
+    "type": 0,
+    "name": "Bulgogi Burger",
+    "options": {
+      "Single": 4500,
+      "Combo": 5900
+    },
+    "image": "bulgogi_burger",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "side1",
+    "type": 1,
+    "name": "French Fries",
+    "options": {
+      "Small": 2500,
+      "Medium": 3000,
+      "Large": 3500
+    },
+    "image": "french_fries",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "side2",
+    "type": 1,
+    "name": "Chicken Nuggets",
+    "options": {
+      "6 pieces": 3500,
+      "10 pieces": 5000
+    },
+    "image": "chicken_nuggets",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "side3",
+    "type": 1,
+    "name": "Seasoned Potatoes",
+    "options": {
+      "Small": 3000,
+      "Medium": 3500,
+      "Large": 4000
+    },
+    "image": "seasoned_potatoes",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "beverage1",
+    "type": 2,
+    "name": "Coca-Cola",
+    "options": {
+      "M": 2000,
+      "L": 2500
+    },
+    "image": "cola",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "beverage2",
+    "type": 2,
+    "name": "Sprite",
+    "options": {
+      "M": 2000,
+      "L": 2500
+    },
+    "image": "sprite",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "beverage3",
+    "type": 2,
+    "name": "Orange Juice",
+    "options": {
+      "M": 2500,
+      "L": 3000
+    },
+    "image": "orange_juice",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "dessert2",
+    "type": 3,
+    "name": "Apple Pie",
+    "options": {
+      "1 piece": 2000
+    },
+    "image": "apple_pie",
+    "ambiguous": ""
+  }
+]

@@ -1,7 +1,6 @@
 package com.odom.orderkiosk.model
 
 import android.os.Parcelable
-import com.google.firebase.firestore.PropertyName
 import com.google.gson.annotations.Expose
 import kotlinx.parcelize.Parcelize
 
@@ -24,7 +23,6 @@ data class Order(
     var beverageOption: String? = null,
 
     @Expose(serialize = false, deserialize = false)
-    @PropertyName("isTakeOut")
     var isTakeOut: Boolean = false,
 ) : Parcelable {
     val price: Long

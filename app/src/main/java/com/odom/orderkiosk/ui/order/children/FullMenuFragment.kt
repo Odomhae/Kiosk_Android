@@ -14,14 +14,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.snapshots
+import com.odom.orderkiosk.utils.MenuJsonParser
 import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentFullMenuBinding
 import com.odom.orderkiosk.databinding.ItemFoodBinding
 import com.odom.orderkiosk.model.Food
 import com.odom.orderkiosk.model.Order
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -29,7 +27,7 @@ class FullMenuFragment : OrderChildrenBaseFragment() {
     private var _binding: FragmentFullMenuBinding? = null
     private val binding get() = _binding!!
 
-    private val db by lazy { FirebaseFirestore.getInstance() }
+    private val menuJsonParser by lazy { MenuJsonParser(requireContext()) }
     private val adapter by lazy { ViewPagerAdapter() }
     private var copiedFoods : List<Food>? = null
 
@@ -82,57 +80,50 @@ class FullMenuFragment : OrderChildrenBaseFragment() {
         }
 
         lifecycleScope.launch {
-            db.collection(getString(R.string.db_name))
-                .orderBy("type")
-                .snapshots()
-                .collectLatest {
-                    val foods =
-                        it.documents.mapNotNull { it.toObject(Food::class.java) }
-                            .groupBy { it.type }
+            val foods = menuJsonParser.getMenuData().groupBy { it.type }
 
-                    val items = listOf(
-                        Food.Type.HAMBURGER, Food.Type.SIDE_MENU, Food.Type.BEVERAGE,
-                        Food.Type.DESSERT
-                    ).map {
-                        if (foods.containsKey(it)) {
-                            return@map it to foods[it]!!
-                        } else {
-                            return@map it to listOf()
-                        }
-                    }
-                    foods.forEach { (foodType, foodList) ->
-                        Log.d("TTT","음식 타입: $foodType")
-                        foodList.forEach { foodItem ->
-                            Log.d("TTT","음식 이름: ${foodItem.name}")
-                            Log.d("TTT","옵션: ${foodItem.options}")
-                            Log.d("TTT","이미지: ${foodItem.image}")
-                        }
-                    }
-                    copiedFoods = foods.values.flatten() // 10.17 추가부분
-                    copiedFoods!!.forEach {
-                        Log.d("TTT2","음식 이름: ${it.name}")
-                        Log.d("TTT2","옵션: ${it.options}")
-                        Log.d("TTT2","이미지: ${it.image}")
-                    }
-                    Log.d("TEST", copiedFoods.toString())
-                    adapter.submitList(items)
-
-                    // glacier : FullMenuFragment 진입시 argument를 입력받도록 설정했습니다.
-                    // 변경사항은 OrderChilderenBaseFramgent에서 backToFullMenuFragment 함수 부분 보시면 됩니다.
-                    // FullMenuFrag 진입 후, db에서 음식정보를 모두 로드 하면 argument를 들고와서 체크합니다.
-                    arguments?.getString("mode")?.let {
-                        if(it != "none") {
-                            // 만약 argument가 none이 아니면 (음성인식 내용이 맞으면) 다음 스텝으로 진행
-                            //goToNextStep(it)
-                            arguments = null
-                        } else {
-                            // 만약 argument가 null이거나 none이면 (아니에요 눌러서 돌아온경우 혹은 정상 진입) 주문문구 띄우기
-                            speakOut(resources.getString(R.string.order_start))
-                        }
-                    } ?: run {
-                        speakOut(resources.getString(R.string.order_start))
-                    }
+            val items = listOf(
+                Food.Type.HAMBURGER, Food.Type.SIDE_MENU, Food.Type.BEVERAGE,
+                Food.Type.DESSERT
+            ).map {
+                if (foods.containsKey(it)) {
+                    return@map it to foods[it]!!
+                } else {
+                    return@map it to listOf()
                 }
+            }
+            foods.forEach { (foodType, foodList) ->
+                Log.d("TTT","음식 타입: $foodType")
+                foodList.forEach { foodItem ->
+                    Log.d("TTT","음식 이름: ${foodItem.name}")
+                    Log.d("TTT","옵션: ${foodItem.options}")
+                    Log.d("TTT","이미지: ${foodItem.image}")
+                }
+            }
+            copiedFoods = foods.values.flatten() // 10.17 추가부분
+            copiedFoods!!.forEach {
+                Log.d("TTT2","음식 이름: ${it.name}")
+                Log.d("TTT2","옵션: ${it.options}")
+                Log.d("TTT2","이미지: ${it.image}")
+            }
+            Log.d("TEST", copiedFoods.toString())
+            adapter.submitList(items)
+
+            // glacier : FullMenuFragment 진입시 argument를 입력받도록 설정했습니다.
+            // 변경사항은 OrderChilderenBaseFramgent에서 backToFullMenuFragment 함수 부분 보시면 됩니다.
+            // FullMenuFrag 진입 후, db에서 음식정보를 모두 로드 하면 argument를 들고와서 체크합니다.
+            arguments?.getString("mode")?.let {
+                if(it != "none") {
+                    // 만약 argument가 none이 아니면 (음성인식 내용이 맞으면) 다음 스텝으로 진행
+                    //goToNextStep(it)
+                    arguments = null
+                } else {
+                    // 만약 argument가 null이거나 none이면 (아니에요 눌러서 돌아온경우 혹은 정상 진입) 주문문구 띄우기
+                    speakOut(resources.getString(R.string.order_start))
+                }
+            } ?: run {
+                speakOut(resources.getString(R.string.order_start))
+            }
         }
 
 
@@ -222,8 +213,11 @@ class FullMenuFragment : OrderChildrenBaseFragment() {
             override fun onBindViewHolder(holder: FoodItemViewHolder, position: Int) {
                 val item = getItem(position)
                 with(holder.binding) {
+                    val resourceId = holder.itemView.context.resources.getIdentifier(
+                            item.image, "drawable", holder.itemView.context.packageName
+                        )
                     Glide.with(imageView)
-                        .load(item.image)
+                        .load(resourceId)
                         .into(imageView)
 
                     nameTextView.text = item.name

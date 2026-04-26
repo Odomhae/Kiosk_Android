@@ -9,13 +9,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.snapshots
+import com.odom.orderkiosk.utils.MenuJsonParser
 import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentCategoryMenuBinding
 import com.odom.orderkiosk.databinding.ItemFoodBinding
 import com.odom.orderkiosk.model.Food
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
@@ -25,7 +23,7 @@ class CategoryMenuFragment : OrderChildrenBaseFragment() {
     private var _binding: FragmentCategoryMenuBinding? = null
     private val binding get() = _binding!!
 
-    private val db by lazy { FirebaseFirestore.getInstance() }
+    private val menuJsonParser by lazy { MenuJsonParser(requireContext()) }
     private val adapter by lazy { FoodListAdapter() }
 
 
@@ -61,17 +59,10 @@ class CategoryMenuFragment : OrderChildrenBaseFragment() {
         }
 
         lifecycleScope.launch {
-            db.collection(getString(R.string.db_name))
-                .whereEqualTo(
-                    "type",
-                    if (type == IncompleteType.HamburgerSetSideMenu) Food.Type.SIDE_MENU.ordinal else Food.Type.BEVERAGE.ordinal
-                )
-                .snapshots()
-                .collectLatest {
-                    val foods = it.documents.mapNotNull { it.toObject(Food::class.java) }
-
-                    adapter.submitList(foods)
-                }
+            val foodType = if (type == IncompleteType.HamburgerSetSideMenu) Food.Type.SIDE_MENU else Food.Type.BEVERAGE
+            val foods = menuJsonParser.getFoodsByType(foodType)
+            
+            adapter.submitList(foods)
         }
 
         if (type == IncompleteType.HamburgerSetSideMenu) {
@@ -154,8 +145,11 @@ class CategoryMenuFragment : OrderChildrenBaseFragment() {
         override fun onBindViewHolder(holder: FoodItemViewHolder, position: Int) {
             val item = getItem(position)
             with(holder.binding) {
+                val resourceId = holder.itemView.context.resources.getIdentifier(
+                    item.image, "drawable", holder.itemView.context.packageName
+                )
                 Glide.with(imageView)
-                    .load(item.image)
+                    .load(resourceId)
                     .into(imageView)
 
                 nameTextView.text = item.name

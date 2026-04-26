@@ -8,7 +8,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.Lifecycle
-import com.google.firebase.functions.FirebaseFunctions
+import com.odom.orderkiosk.utils.MenuJsonParser
+import com.odom.orderkiosk.utils.LocalBotProcessor
 import com.google.gson.Gson
 import com.odom.orderkiosk.R
 import com.odom.orderkiosk.model.BotResponse
@@ -20,7 +21,6 @@ import com.odom.orderkiosk.ui.order.OrderFragment.Companion.KEY_ORDER_AMB_LIST
 import com.odom.orderkiosk.ui.order.OrderFragment.Companion.KEY_ORDER_LIST
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 open class OrderChildrenBaseFragment : Fragment(), FragmentResultListener {
@@ -142,7 +142,7 @@ open class OrderChildrenBaseFragment : Fragment(), FragmentResultListener {
             bundleOf("text" to text)
         )
     }
-    // 파이어베이스 function의 detectIntent 호출하는 코드
+    // 로컬 봇 처리 코드
     protected suspend fun sendMessageToBot(text: String) = withContext(Dispatchers.IO) {
         val progressView = parentFragment?.view?.findViewById<View>(R.id.progress_view)
         if (progressView?.isVisible == true) return@withContext null
@@ -152,15 +152,15 @@ open class OrderChildrenBaseFragment : Fragment(), FragmentResultListener {
         }
 
         try {
-            val result = FirebaseFunctions.getInstance().getHttpsCallable("detectIntent")
-                .call(hashMapOf("question" to text))
-                .await()
+            val menuJsonParser = MenuJsonParser(requireContext())
+            val localBotProcessor = LocalBotProcessor()
+            val allFoods = menuJsonParser.getMenuData()
 
             launch(Dispatchers.Main) {
                 progressView?.isVisible = false
             }
 
-            return@withContext Gson().fromJson(result.data as String, BotResponse::class.java)
+            return@withContext localBotProcessor.processUserInput(text, allFoods)
 
         } catch (e: Exception) {
             e.printStackTrace()
