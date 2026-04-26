@@ -4,110 +4,239 @@
     "type": 0,
     "name": "Big Mac",
     "options": {
-      "Single": 5500,
-      "Combo": 6900
+      "Single": 6,
+      "Set": 8
     },
-    "image": "bigmac",
-    "ambiguous": ""
+    "image": "bigmac"
   },
   {
     "documentId": "hamburger2",
     "type": 0,
-    "name": "Cheeseburger",
+    "name": "Hot Dog",
     "options": {
-      "Single": 4200,
-      "Combo": 5600
+      "Single": 5,
+      "Set": 6
     },
-    "image": "cheeseburger",
-    "ambiguous": ""
+    "image": "hotdog"
   },
   {
     "documentId": "hamburger3",
     "type": 0,
     "name": "Bulgogi Burger",
     "options": {
-      "Single": 4500,
-      "Combo": 5900
+      "Single": 8,
+      "Set": 10
     },
-    "image": "bulgogi_burger",
-    "ambiguous": ""
+    "image": "bulgogi_burger"
   },
+  {
+    "documentId": "hamburger4",
+    "type": 0,
+    "name": "Shrimp Burger",
+    "options": {
+      "Single": 7,
+      "Set": 10
+    },
+    "image": "shrimp_burger"
+  },
+  {
+    "documentId": "hamburger5",
+    "type": 0,
+    "name": "Egg Toast",
+    "options": {
+      "Single": 4,
+      "Set": 6
+    },
+    "image": "egg_toast"
+  },
+  {
+    "documentId": "hamburger6",
+    "type": 0,
+    "name": "Cheeseburger",
+    "options": {
+      "Single": 4,
+      "Set": 6
+    },
+    "image": "cheeseburger"
+  },
+  {
+    "documentId": "hamburger7",
+    "type": 0,
+    "name": "Mushroom Sandwich",
+    "options": {
+      "Single": 6,
+      "Set": 8
+    },
+    "image": "mush_sandwich"
+  },
+  {
+    "documentId": "hamburger8",
+    "type": 0,
+    "name": "Chicken Burger",
+    "options": {
+      "Single": 5,
+      "Set": 8
+    },
+    "image": "chicken_burger"
+  },
+  {
+    "documentId": "hamburger9",
+    "type": 0,
+    "name": "Baguette Sandwich",
+    "options": {
+      "Single": 8,
+      "Set": 11
+    },
+    "image": "barguet_sandwich"
+  },
+
+
   {
     "documentId": "side1",
     "type": 1,
     "name": "French Fries",
     "options": {
-      "Small": 2500,
-      "Medium": 3000,
-      "Large": 3500
+      "Medium": 3,
+      "Large": 4
     },
-    "image": "french_fries",
-    "ambiguous": ""
+    "image": "french_fries"
   },
   {
     "documentId": "side2",
     "type": 1,
     "name": "Chicken Nuggets",
     "options": {
-      "6 pieces": 3500,
-      "10 pieces": 5000
+      "6 pieces": 3,
+      "10 pieces": 5
     },
-    "image": "chicken_nuggets",
-    "ambiguous": ""
+    "image": "chicken_nuggets"
   },
   {
     "documentId": "side3",
     "type": 1,
     "name": "Seasoned Potatoes",
     "options": {
-      "Small": 3000,
-      "Medium": 3500,
-      "Large": 4000
+      "Medium": 2,
+      "Large": 3
     },
-    "image": "seasoned_potatoes",
-    "ambiguous": ""
+    "image": "seasoned_potatoes"
   },
+  {
+    "documentId": "side4",
+    "type": 1,
+    "name": "Coleslaw",
+    "options": {
+      "Medium": 2,
+      "Large": 3
+    },
+    "image": "coleslaw"
+  },
+  {
+    "documentId": "side5",
+    "type": 1,
+    "name": "Chicken Leg",
+    "options": {
+      "2 pieces": 3,
+      "3 pieces": 4
+    },
+    "image": "chicken_leg"
+  },
+
+
   {
     "documentId": "beverage1",
     "type": 2,
-    "name": "Coca-Cola",
+    "name": "Cola",
     "options": {
-      "M": 2000,
-      "L": 2500
+      "M": 2,
+      "L": 3
     },
-    "image": "cola",
-    "ambiguous": ""
+    "image": "cola"
   },
   {
     "documentId": "beverage2",
     "type": 2,
     "name": "Sprite",
     "options": {
-      "M": 2000,
-      "L": 2500
+      "M": 2,
+      "L": 3
     },
-    "image": "sprite",
-    "ambiguous": ""
+    "image": "sprite"
   },
   {
     "documentId": "beverage3",
     "type": 2,
     "name": "Orange Juice",
     "options": {
-      "M": 2500,
-      "L": 3000
+      "M": 2,
+      "L": 3
     },
-    "image": "orange_juice",
-    "ambiguous": ""
+    "image": "orange_juice"
   },
+  {
+    "documentId": "beverage4",
+    "type": 2,
+    "name": "Beer",
+    "options": {
+      "300cc": 3,
+      "500cc": 5
+    },
+    "image": "beer"
+  },
+  {
+    "documentId": "beverage5",
+    "type": 2,
+    "name": "Water",
+    "options": {
+      "1 bottle": 1
+    },
+    "image": "water"
+  },
+  {
+    "documentId": "beverage6",
+    "type": 2,
+    "name": "Americano",
+    "options": {
+      "1 cup": 2
+    },
+    "image": "americano"
+  },
+  {
+    "documentId": "beverage7",
+    "type": 2,
+    "name": "Soju",
+    "options": {
+      "1 bottle": 2
+    },
+    "image": "soju"
+  },
+  {
+    "documentId": "beverage8",
+    "type": 2,
+    "name": "Lemonade",
+    "options": {
+      "1 cup": 2
+    },
+    "image": "lemonade"
+  },
+
+
   {
     "documentId": "dessert2",
     "type": 3,
     "name": "Apple Pie",
     "options": {
-      "1 piece": 2000
+      "1 piece": 2
     },
-    "image": "apple_pie",
-    "ambiguous": ""
+    "image": "apple_pie"
+  },
+  {
+    "documentId": "dessert3",
+    "type": 3,
+    "name": "Egg Tart",
+    "options": {
+      "1 piece": 3
+    },
+    "image": "egg_tart"
   }
 ]

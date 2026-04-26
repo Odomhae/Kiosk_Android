@@ -4,8 +4,8 @@
     "type": 0,
     "name": "빅맥",
     "options": {
-      "단품": 5500,
-      "세트": 6900
+      "단품": 6000,
+      "세트": 8000
     },
     "image": "bigmac",
     "ambiguous": ""
@@ -13,12 +13,12 @@
   {
     "documentId": "hamburger2",
     "type": 0,
-    "name": "치즈버거",
+    "name": "핫도그",
     "options": {
-      "단품": 4200,
-      "세트": 5600
+      "단품": 5000,
+      "세트": 6000
     },
-    "image": "cheeseburger",
+    "image": "hotdog",
     "ambiguous": ""
   },
   {
@@ -26,18 +26,85 @@
     "type": 0,
     "name": "불고기버거",
     "options": {
-      "단품": 4500,
-      "세트": 5900
+      "단품": 8000,
+      "세트": 10000
     },
     "image": "bulgogi_burger",
     "ambiguous": ""
   },
   {
+    "documentId": "hamburger4",
+    "type": 0,
+    "name": "새우버거",
+    "options": {
+      "단품": 7000,
+      "세트": 10000
+    },
+    "image": "shrimp_burger",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "hamburger5",
+    "type": 0,
+    "name": "에그 토스트",
+    "options": {
+      "단품": 4000,
+      "세트": 6000
+    },
+    "image": "egg_toast",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "hamburger6",
+    "type": 0,
+    "name": "치즈버거",
+    "options": {
+      "단품": 4000,
+      "세트": 6000
+    },
+    "image": "cheeseburger",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "hamburger7",
+    "type": 0,
+    "name": "머쉬룸 샌드위치",
+    "options": {
+      "단품": 6000,
+      "세트": 8000
+    },
+    "image": "mush_sandwich",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "hamburger8",
+    "type": 0,
+    "name": "치킨버거",
+    "options": {
+      "단품": 5000,
+      "세트": 8000
+    },
+    "image": "chicken_burger",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "hamburger9",
+    "type": 0,
+    "name": "바게트 샌드위치",
+    "options": {
+      "단품": 8000,
+      "세트": 11000
+    },
+    "image": "barguet_sandwich",
+    "ambiguous": ""
+  },
+
+
+  {
     "documentId": "side1",
     "type": 1,
     "name": "감자튀김",
     "options": {
-      "소": 2500,
       "중": 3000,
       "대": 3500
     },
@@ -49,7 +116,7 @@
     "type": 1,
     "name": "치킨너겟",
     "options": {
-      "6조각": 3500,
+      "6조각": 3000,
       "10조각": 5000
     },
     "image": "chicken_nuggets",
@@ -60,13 +127,36 @@
     "type": 1,
     "name": "양념감자",
     "options": {
-      "소": 3000,
-      "중": 3500,
-      "대": 4000
+      "중": 2000,
+      "대": 3000
     },
     "image": "seasoned_potatoes",
     "ambiguous": ""
   },
+  {
+    "documentId": "side4",
+    "type": 1,
+    "name": "코울슬로",
+    "options": {
+      "중": 2000,
+      "대": 3000
+    },
+    "image": "coleslaw",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "side5",
+    "type": 1,
+    "name": "닭다리",
+    "options": {
+      "2개": 3000,
+      "3개": 4000
+    },
+    "image": "chicken_leg",
+    "ambiguous": ""
+  },
+
+
   {
     "documentId": "beverage1",
     "type": 2,
@@ -101,6 +191,59 @@
     "ambiguous": ""
   },
   {
+    "documentId": "beverage4",
+    "type": 2,
+    "name": "맥주",
+    "options": {
+      "300cc": 3000,
+      "500cc": 5000
+    },
+    "image": "beer",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "beverage5",
+    "type": 2,
+    "name": "생수",
+    "options": {
+      "1개": 1000
+    },
+    "image": "water",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "beverage6",
+    "type": 2,
+    "name": "아메리카노",
+    "options": {
+      "1개": 1500
+    },
+    "image": "americano",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "beverage7",
+    "type": 2,
+    "name": "소주",
+    "options": {
+      "1개": 2000
+    },
+    "image": "soju",
+    "ambiguous": ""
+  },
+  {
+    "documentId": "beverage8",
+    "type": 2,
+    "name": "레몬에이드",
+    "options": {
+      "1개": 2000
+    },
+    "image": "lemonade",
+    "ambiguous": ""
+  },
+
+
+  {
     "documentId": "dessert2",
     "type": 3,
     "name": "애플파이",
@@ -109,5 +252,17 @@
     },
     "image": "apple_pie",
     "ambiguous": ""
+  },
+  {
+    "documentId": "dessert3",
+    "type": 3,
+    "name": "에그 타르트",
+    "options": {
+      "1개": 3000
+    },
+    "image": "egg_tart",
+    "ambiguous": ""
   }
+
+
 ]

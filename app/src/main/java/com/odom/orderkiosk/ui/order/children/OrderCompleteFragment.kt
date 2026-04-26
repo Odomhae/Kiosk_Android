@@ -5,18 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.play.core.review.ReviewException
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.android.play.core.review.model.ReviewErrorCode
 import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentOrderCompleteBinding
+import com.odom.orderkiosk.utils.AdManager
 import java.util.Timer
 import java.util.TimerTask
 
 class OrderCompleteFragment : OrderChildrenBaseFragment() {
     private var _binding: FragmentOrderCompleteBinding? = null
     private val binding get() = _binding!!
-
+    private val adManager by lazy { AdManager(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +54,16 @@ class OrderCompleteFragment : OrderChildrenBaseFragment() {
 
         speakOut(resources.getString(R.string.order_completed))
 
+        // 주문 완료 카운트 증가 및 광고 로드
+        adManager.incrementOrderCount()
+        adManager.loadInterstitialAd()
+
         reviewApp()
+        
+        // 전면 광고 표시 (2번에 한번)
+        adManager.showInterstitialAd {
+            // 광고가 닫힌 후 추가 작업 있으면 여기에
+        }
     }
 
     private fun reviewApp() {
