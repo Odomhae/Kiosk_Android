@@ -28,6 +28,6 @@ data class Order(
     val price: Long
 //        get() = food.options[option]!! +
           get() = (food.options.get(option) ?: food.options.get(food.options.keys.first()) ?: 0) +
-                (sideMenu?.options?.values?.first() ?: 0) +
-                (beverage?.options?.values?.first() ?: 0)
+                (sideMenu?.options?.get(sideMenuOption) ?: sideMenu?.options?.values?.first() ?: 0) +
+                (beverage?.options?.get(beverageOption) ?: beverage?.options?.values?.first() ?: 0)
 }
