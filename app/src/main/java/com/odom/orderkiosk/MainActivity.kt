@@ -11,6 +11,10 @@ import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.graphics.Insets
@@ -18,8 +22,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.odom.orderkiosk.databinding.ActivityMainBinding
 import com.odom.orderkiosk.ui.order.OrderFragment
+import com.odom.orderkiosk.utils.TtsSettings
 import kotlinx.coroutines.Job
 import java.util.Locale
 import java.util.UUID
@@ -34,6 +43,10 @@ class MainActivity : AppCompatActivity(), RecognitionListener, TextToSpeech.OnIn
     private val textToSpeechReady = MutableLiveData(false)
     private var job: Job? = null
 
+    // 종료 다이얼로그에 표시할 미리 로드된 배너 광고
+    private var exitAdView: AdView? = null
+    private var exitDialog: AlertDialog? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -41,9 +54,60 @@ class MainActivity : AppCompatActivity(), RecognitionListener, TextToSpeech.OnIn
         speechRecognizer.setRecognitionListener(this)
         textToSpeech = TextToSpeech(this, this)
 
+        MobileAds.initialize(this) {}
+        loadExitAd()
+
+        // OrderFragment의 콜백이 나중에 등록되므로 우선 처리되고,
+        // 자식 백스택이 비었을 때만 여기로 넘어와 종료 다이얼로그가 표시됨
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                showExitDialog()
+            }
+        })
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, OrderFragment())
             .commit()
+    }
+
+    // 다이얼로그를 띄우는 시점에 이미 로드되어 있도록 앱 시작/다이얼로그 닫힘 시 미리 로드
+    private fun loadExitAd() {
+        exitAdView?.destroy()
+
+        val adView = AdView(this)
+        adView.setAdSize(AdSize.MEDIUM_RECTANGLE)
+        adView.adUnitId = getString(R.string.TEST_banner_ad_unit_id)
+        adView.loadAd(AdRequest.Builder().build())
+
+        exitAdView = adView
+    }
+
+    private fun showExitDialog() {
+        if (exitDialog?.isShowing == true) return
+
+        val dialogView = layoutInflater.inflate(R.layout.dialog_exit, null)
+        val adContainer = dialogView.findViewById<FrameLayout>(R.id.exit_ad_container)
+
+        exitAdView?.let { adView ->
+            (adView.parent as? ViewGroup)?.removeView(adView)
+            adContainer.addView(adView)
+        }
+
+        exitDialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setPositiveButton(R.string.exit) { _, _ -> finish() }
+            .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
+            .create()
+            .apply {
+                setOnDismissListener {
+                    adContainer.removeAllViews()
+                    // 취소한 경우 다음 종료 시도에 새 광고가 준비되도록 다시 로드
+                    if (!isFinishing) {
+                        loadExitAd()
+                    }
+                }
+                show()
+            }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -68,6 +132,10 @@ class MainActivity : AppCompatActivity(), RecognitionListener, TextToSpeech.OnIn
     }
 
     override fun onDestroy() {
+        exitDialog?.dismiss()
+        exitAdView?.destroy()
+        exitAdView = null
+
         textToSpeech.stop()
         textToSpeech.shutdown()
         speechRecognizer.destroy()
@@ -76,6 +144,9 @@ class MainActivity : AppCompatActivity(), RecognitionListener, TextToSpeech.OnIn
     }
 
     fun speakOut(text: String?) {
+        // 음성 안내 꺼짐 설정이면 말하지 않음 (채팅 버블 표시는 OrderFragment에서 별도 처리됨)
+        if (!TtsSettings.isEnabled(this)) return
+
         textToSpeechReady.observe(this, object : androidx.lifecycle.Observer<Boolean> {
             override fun onChanged(t: Boolean?) {
                 if (t == true) {
@@ -100,6 +171,13 @@ class MainActivity : AppCompatActivity(), RecognitionListener, TextToSpeech.OnIn
                 }
             }
         })
+    }
+
+    // 음성 안내 토글을 껐을 때 진행 중인 안내를 즉시 중단
+    fun stopSpeaking() {
+        if (this::textToSpeech.isInitialized && textToSpeech.isSpeaking) {
+            textToSpeech.stop()
+        }
     }
 
     private fun stopSpeechRecognizer() {

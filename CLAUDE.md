@@ -22,7 +22,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## App Overview
 
-**OrderKiosk** is a voice-activated restaurant ordering kiosk app (com.odom.orderkiosk, v1.5). Users place hamburger orders through voice commands and a conversational chat UI. The app is bilingual (Korean/English), locale-aware, and monetized via AdMob.
+**OrderKiosk** is a voice-activated restaurant ordering kiosk app (com.odom.orderkiosk, v1.5). Users place hamburger orders through voice commands and a conversational chat UI. The app is bilingual (Korean/English), locale-aware, and monetized via AdMob. Play Store: https://play.google.com/store/apps/details?id=com.odom.orderkiosk
+
+All data is local — menu data comes from bundled JSON, the order flow state lives in Parcelables passed between fragments, and the only persistence is SharedPreferences (ad order counter). Firebase was removed from the code (commit cad7b3c), but its dependencies and the `google-services` plugin are still declared in Gradle — see Dependencies below.
 
 ## Architecture
 
@@ -54,23 +56,34 @@ The app uses the **Fragment Result API** exclusively (no shared ViewModel). Key 
 
 ### Order flow state
 
-`OrderChildrenBaseFragment.getIncompleteOrderAndType(orderList)` drives the multi-step flow. It returns the first `Order` that is missing a required field, selecting the next fragment to push. Incomplete types: `MainFoodOption`, `HamburgerSetSideMenu`, `HamburgerSetBeverage`, `Count`.
+`OrderChildrenBaseFragment.next(orderList)` drives the multi-step flow. It calls the private `getIncompleteOrderAndType(orderList)`, which returns the first `Order` missing a required field, and pushes the matching fragment:
+
+| `IncompleteType` | Fragment pushed |
+|---|---|
+| `MainFoodOption`, `HamburgerSetSideMenuOption`, `HamburgerSetBeverageOption` | `OptionFragment` |
+| `HamburgerSetSideMenu`, `HamburgerSetBeverage` | `CategoryMenuFragment` |
+| `Count` | `CountFragment` |
+| none (order complete) | `TakeOutFragment` |
+
+The `*Option` set-menu variants matter: a combo (`menu_combo` option) hamburger requires side menu, side menu option, beverage, and beverage option to all be filled before the order counts as complete. In `onCreate`, the base fragment resolves `food`/`options` from `order.sideMenu` or `order.beverage` instead of `order.food` when the incomplete type is one of the `*Option` variants.
 
 ### Data models (all Parcelable, no Room DB)
 
 | Class | Purpose |
 |-------|---------|
-| `Food` | Menu item: type (0=burger,1=side,2=beverage,3=dessert), name, options map (String→Long price), drawable name, ambiguous string |
-| `Order` | Single line item: `Food` + selected option, count, side menu, beverage, takeout flag |
+| `Food` | Menu item: JSON int `type` exposed as `Food.Type` enum (HAMBURGER/SIDE_MENU/BEVERAGE/DESSERT), name, options map (String→Long price), image name, ambiguous string |
+| `Order` | Single line item: `Food` + selected option, count, sideMenu/sideMenuOption, beverage/beverageOption, takeout flag. `price` getter sums main + side + beverage, keyed by the selected option (falls back to the first option) |
 | `OrderList` | Cart: `ArrayList<Order>` + global takeout flag |
 | `Message` | Chat bubble: text + boolean (user vs bot) |
 | `BotResponse` | NLP response for `LocalBotProcessor` |
+
+The set-menu fields on `Order` (`sideMenu`, `sideMenuOption`, `beverage`, `beverageOption`, `isTakeOut`) are annotated `@Expose(serialize = false, deserialize = false)` — they are Parcelable-only and excluded from Gson.
 
 ### Menu data
 
 Loaded at runtime by `MenuJsonParser` from `res/raw/`:
 - `menu_data.json` — Korean menus
-- `menu_data_en.json` — English menus (selected when device locale is not Korean)
+- `menu_data_en.json` — English menus (selected when `context.resources.configuration.locales[0].language != "ko"`)
 
 ### Key utilities
 
@@ -86,11 +99,12 @@ Loaded at runtime by `MenuJsonParser` from `res/raw/`:
 - **JSON:** Gson 2.10.1
 - **Ads:** `play-services-ads` 22.5.0 (real ad unit IDs in `strings.xml`)
 - **In-app review:** `play:review` 2.0.1
-- **Firebase BOM 31.3.0:** Analytics, Realtime Database, Firestore, Functions, Storage
+- **Firebase (vestigial):** BOM 31.3.0 + Analytics/Realtime Database/Firestore/Functions/Storage are still in `app/build.gradle`, and the `com.google.gms.google-services` plugin is still applied (so `app/google-services.json` is required to build), but **no Kotlin code uses Firebase**. Don't add new Firebase usage; these are leftovers from commit cad7b3c
 
 ## Localization
 
 - Default strings: `values/strings.xml` (English labels + AdMob IDs)
 - Korean strings: `values-ko-rKR/strings.xml`
-- Menu JSON selection is handled in `MenuJsonParser` based on `Locale.getDefault()`
+- Menu JSON selection is handled in `MenuJsonParser` based on the configuration locale
 - TTS language switches between `Locale.KOREAN` and `Locale.US`
+- Option matching uses localized strings (e.g. `R.string.menu_combo` identifies a combo order), so flow logic is sensitive to which locale's menu JSON and strings are loaded

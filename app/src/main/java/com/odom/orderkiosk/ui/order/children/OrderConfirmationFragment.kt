@@ -50,59 +50,23 @@ class OrderConfirmationFragment : OrderChildrenBaseFragment() {
                 binding.contentContainer.addView(priceBinding.root, index)
             }
 
-            // NOTICE: 개별 주문 상품 금액 = 현재는 1종이라 바로 대입이지만, 리스트에서 넣도록 하는 것이 안전함
-            var totalPrice = 0L
-            var count = orderList.elements.first().count!!
-            val price = orderList.elements.sumOf { it.price }
-            if (count < 1) {
-                count = 1
+            // 항목별 (단가 x 수량) 한 줄씩 표시, 총액은 각 항목 금액의 합
+            val numberFormat = NumberFormat.getInstance(Locale.KOREA)
+
+            priceTextView.text = orderList.elements.joinToString("\n") { order ->
+                val count = (order.count ?: 1).coerceAtLeast(1)
+                String.format(
+                    Locale.KOREA,
+                    getString(R.string.price_format2),
+                    numberFormat.format(order.price),
+                    numberFormat.format(count),
+                    numberFormat.format(order.price * count)
+                )
             }
 
-            // 두번째 메뉴 갯수
-//            var count2 = 0
-//            var price2 = 0L
-//            if (orderList.elements.size > 1) {
-//                count2 = orderList.elements[1].count!!
-//                price2 = orderList.elements[1].price
-//            }
-
-            priceTextView.text = String.format(
-                Locale.KOREA,
-                // NOTICE: 수량 추가
-                /*
-                "%s원",
-                NumberFormat.getInstance(Locale.KOREA).format(orderList.elements.sumOf { it.price })
-                 */
-                getString(R.string.price_format2),
-                NumberFormat.getInstance(Locale.KOREA).format(price),
-                NumberFormat.getInstance(Locale.KOREA).format(count),
-                NumberFormat.getInstance(Locale.KOREA).format(price * count)
-            )
-
-//            if (count2 > 0) {
-//                priceTextView.text = String.format(
-//                    Locale.KOREA,
-//                    // NOTICE: 수량 추가
-//                    /*
-//                    "%s원",
-//                    NumberFormat.getInstance(Locale.KOREA).format(orderList.elements.sumOf { it.price })
-//                     */
-//                    "%s원 x %s개 = %s원\n %s원 x %s개 = %s원",
-//                    NumberFormat.getInstance(Locale.KOREA).format(price),
-//                    NumberFormat.getInstance(Locale.KOREA).format(count),
-//                    NumberFormat.getInstance(Locale.KOREA).format(price * count),
-//                    NumberFormat.getInstance(Locale.KOREA).format(price2),
-//                    NumberFormat.getInstance(Locale.KOREA).format(count2),
-//                    NumberFormat.getInstance(Locale.KOREA).format(price2 * count2)
-//                )
-//
-//            }
-
-            totalPrice += price * count
-            // totalPrice += price2 * count2
-            // NOTICE: 총 주문금액 추가 (할인/쿠폰 등 제외)
-            /// String.format(getString(R.string.eat), count)
-            totalPriceTextView.text = String.format(getString(R.string.total_amount), NumberFormat.getInstance(Locale.KOREA).format(totalPrice))
+            // NOTICE: 총 주문금액 (할인/쿠폰 등 제외)
+            val totalPrice = orderList.elements.sumOf { it.price * (it.count ?: 1).coerceAtLeast(1) }
+            totalPriceTextView.text = String.format(getString(R.string.total_amount), numberFormat.format(totalPrice))
 
             negativeButton.setOnClickListener {
                 backToFullMenuFragment("none")

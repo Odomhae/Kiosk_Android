@@ -33,6 +33,7 @@
 
     <string name="takeout">포장</string>
     <string name="store">매장</string>
+    <string name="receipt_title">주문 내역</string>
     <string name="order_number">주문번호</string>
     <string name="credit_card">카드</string>
     <string name="coupon">쿠폰</string>
@@ -54,5 +55,11 @@
 
     <string name="selected">주문합니다</string>
     <string name="selected_single_combo">주문합니다. 단품으로 하시겠어요. 세트로 하시겠어요?</string>
+
+    <string name="tts_toggle">음성 안내 켜기/끄기</string>
+
+    <string name="exit_dialog_message">앱을 종료하시겠습니까?</string>
+    <string name="exit">종료</string>
+    <string name="cancel">취소</string>
 
 </resources>

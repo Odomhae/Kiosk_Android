@@ -29,21 +29,8 @@ class PaymentFragment : OrderChildrenBaseFragment() {
         with(binding) {
             toolbar.setOnClickListener { parentFragmentManager.popBackStack() }
 
-            var totalPrice = 0L
-            var count = orderList.elements.first().count!!
-            val price = orderList.elements.sumOf { it.price }
-            if (count < 1) {
-                count = 1
-            }
-//            var count2 = 0
-//            var price2 = 0L
-//            if (orderList.elements.size > 1) {
-//                count2 = orderList.elements[1].count!!
-//                price2 = orderList.elements[1].price
-//            }
-
-            totalPrice += price * count
-            //     totalPrice += price2 * count2
+            // 총액 = 각 항목의 (단가 x 수량) 합
+            val totalPrice = orderList.elements.sumOf { it.price * (it.count ?: 1).coerceAtLeast(1) }
             priceTextView.text = String.format(getString(R.string.total_amount), NumberFormat.getInstance(Locale.KOREA).format(totalPrice))
 
             option1Container.setOnClickListener {

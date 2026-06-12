@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
+import com.odom.orderkiosk.MainActivity
 import com.odom.orderkiosk.utils.MenuJsonParser
+import com.odom.orderkiosk.utils.TtsSettings
 import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentFullMenuBinding
 import com.odom.orderkiosk.databinding.ItemFoodBinding
@@ -41,6 +43,16 @@ class FullMenuFragment : OrderChildrenBaseFragment() {
         super.onDestroy()
     }
 
+    private fun updateTtsToggleIcon() {
+        binding.ttsToggleButton.setImageResource(
+            if (TtsSettings.isEnabled(requireContext())) {
+                R.drawable.ic_volume_up_24
+            } else {
+                R.drawable.ic_volume_off_24
+            }
+        )
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -61,6 +73,17 @@ class FullMenuFragment : OrderChildrenBaseFragment() {
                         })
                     }
                 }
+            }
+
+            // 음성 안내 켜기/끄기 토글
+            updateTtsToggleIcon()
+            ttsToggleButton.setOnClickListener {
+                val enabled = !TtsSettings.isEnabled(requireContext())
+                TtsSettings.setEnabled(requireContext(), enabled)
+                if (!enabled) {
+                    (activity as? MainActivity)?.stopSpeaking()
+                }
+                updateTtsToggleIcon()
             }
 
             tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {

@@ -32,8 +32,9 @@
     <string name="menu_single">single</string>
     <string name="menu_combo">combo</string>
 
-    <string name="takeout">For here</string>
-    <string name="store">To go</string>
+    <string name="takeout">To go</string>
+    <string name="store">For here</string>
+    <string name="receipt_title">Order details</string>
     <string name="order_number">Order number</string>
     <string name="credit_card">Credit card</string>
     <string name="coupon">Coupon</string>
@@ -56,5 +57,11 @@
 
     <string name="selected">selected</string>
     <string name="selected_single_combo"> is selected. Would you like to take as a combo or just burger?</string>
+
+    <string name="tts_toggle">Turn voice guidance on or off</string>
+
+    <string name="exit_dialog_message">Are you sure you want to exit?</string>
+    <string name="exit">Exit</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

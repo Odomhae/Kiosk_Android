@@ -42,8 +42,11 @@ class OrderFragment : BaseFragment() {
             if (childFragmentManager.backStackEntryCount > 1) {
                 childFragmentManager.popBackStack()
             } else {
+                // 비활성화 후 다시 dispatch하면 MainActivity의 콜백(종료 다이얼로그)이 처리함.
+                // 다이얼로그에서 취소했을 때 자식 백스택 뒤로가기가 계속 동작하도록 다시 활성화
                 this.isEnabled = false
                 requireActivity().onBackPressedDispatcher.onBackPressed()
+                this.isEnabled = true
             }
         }
     }

@@ -80,6 +80,50 @@
                             android:layout_gravity="center"
                             tools:text="@tools:sample/lorem" />
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@color/black12" />
+
+                        <TextView
+                            android:id="@+id/receipt_title_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/receipt_title"
+                            android:textAppearance="?attr/textAppearanceBody1"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:id="@+id/receipt_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="12dp"
+                            android:background="@color/black12" />
+
+                        <TextView
+                            android:id="@+id/takeout_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            tools:text="@tools:sample/lorem" />
+
+                        <TextView
+                            android:id="@+id/total_price_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textAppearance="?attr/textAppearanceBody1"
+                            android:textStyle="bold"
+                            tools:text="@tools:sample/lorem" />
+
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
