@@ -14,6 +14,7 @@ import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.odom.orderkiosk.BaseFragment
+import com.odom.orderkiosk.MainActivity
 import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentOrderBinding
 import com.odom.orderkiosk.databinding.ItemMyMessageBinding
@@ -40,13 +41,11 @@ class OrderFragment : BaseFragment() {
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             if (childFragmentManager.backStackEntryCount > 1) {
+                // 첫 화면이 아니면 이전 fragment로 돌아감
                 childFragmentManager.popBackStack()
             } else {
-                // 비활성화 후 다시 dispatch하면 MainActivity의 콜백(종료 다이얼로그)이 처리함.
-                // 다이얼로그에서 취소했을 때 자식 백스택 뒤로가기가 계속 동작하도록 다시 활성화
-                this.isEnabled = false
-                requireActivity().onBackPressedDispatcher.onBackPressed()
-                this.isEnabled = true
+                // 맨 처음 화면에서만 광고 포함 종료 다이얼로그 표시
+                (activity as? MainActivity)?.showExitDialog()
             }
         }
     }

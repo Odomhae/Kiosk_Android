@@ -13,7 +13,6 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -57,14 +56,6 @@ class MainActivity : AppCompatActivity(), RecognitionListener, TextToSpeech.OnIn
         MobileAds.initialize(this) {}
         loadExitAd()
 
-        // OrderFragment의 콜백이 나중에 등록되므로 우선 처리되고,
-        // 자식 백스택이 비었을 때만 여기로 넘어와 종료 다이얼로그가 표시됨
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                showExitDialog()
-            }
-        })
-
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, OrderFragment())
             .commit()
@@ -82,7 +73,8 @@ class MainActivity : AppCompatActivity(), RecognitionListener, TextToSpeech.OnIn
         exitAdView = adView
     }
 
-    private fun showExitDialog() {
+    // 첫 화면에서 뒤로가기 시 OrderFragment가 직접 호출 (광고 포함 종료 다이얼로그)
+    fun showExitDialog() {
         if (exitDialog?.isShowing == true) return
 
         val dialogView = layoutInflater.inflate(R.layout.dialog_exit, null)
