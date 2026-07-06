@@ -21,6 +21,7 @@ import com.odom.orderkiosk.databinding.ItemMyMessageBinding
 import com.odom.orderkiosk.databinding.ItemOtherMessageBinding
 import com.odom.orderkiosk.model.Message
 import com.odom.orderkiosk.ui.order.children.FullMenuFragment
+import com.odom.orderkiosk.utils.AnalyticsLogger
 
 class OrderFragment : BaseFragment() {
     companion object {
@@ -126,6 +127,7 @@ class OrderFragment : BaseFragment() {
         Log.d("OrderFragment", results.joinToString())
 
         val message = results.firstOrNull { it.isNotBlank() } ?: return
+        AnalyticsLogger.logVoiceInputUsed(requireContext())
         addMyMessage(message)
 
         childFragmentManager.setFragmentResult(

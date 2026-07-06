@@ -12,6 +12,7 @@ import com.odom.orderkiosk.R
 import com.odom.orderkiosk.databinding.FragmentOrderCompleteBinding
 import com.odom.orderkiosk.databinding.ItemReceiptBinding
 import com.odom.orderkiosk.utils.AdManager
+import com.odom.orderkiosk.utils.AnalyticsLogger
 import java.text.NumberFormat
 import java.util.Locale
 import java.util.Timer
@@ -110,6 +111,8 @@ class OrderCompleteFragment : OrderChildrenBaseFragment() {
             resources.getString(R.string.order_completed) +
                     " " + resources.getString(R.string.order_number) + " $orderNumber"
         )
+
+        AnalyticsLogger.logOrderCompleted(requireContext(), orderList.elements.size)
 
         // 주문 완료 카운트 증가 및 광고 로드
         adManager.incrementOrderCount()

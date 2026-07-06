@@ -89,6 +89,7 @@ Loaded at runtime by `MenuJsonParser` from `res/raw/`:
 
 - `LocalBotProcessor` — simple substring-matching NLP to map voice input → `Food` objects
 - `AdManager` — tracks completed order count in SharedPreferences; shows interstitial every 2nd order
+- `AnalyticsLogger` — Firebase Analytics wrapper for growth-metric events (order funnel + voice usage)
 - `MenuJsonParser` — locale-aware JSON loader using Gson
 
 ## Dependencies
@@ -99,7 +100,7 @@ Loaded at runtime by `MenuJsonParser` from `res/raw/`:
 - **JSON:** Gson 2.10.1
 - **Ads:** `play-services-ads` 22.5.0 (real ad unit IDs in `strings.xml`)
 - **In-app review:** `play:review` 2.0.1
-- **Firebase (vestigial):** BOM 31.3.0 + Analytics/Realtime Database/Firestore/Functions/Storage are still in `app/build.gradle`, and the `com.google.gms.google-services` plugin is still applied (so `app/google-services.json` is required to build), but **no Kotlin code uses Firebase**. Don't add new Firebase usage; these are leftovers from commit cad7b3c
+- **Firebase:** BOM 31.3.0 + Analytics/Realtime Database/Firestore/Functions/Storage in `app/build.gradle`, with the `com.google.gms.google-services` plugin applied (so `app/google-services.json` is required to build). **Analytics is actively used** via `utils/AnalyticsLogger` (growth-metric events: `order_started`, `order_completed`, `voice_input_used` — see `docs/superpowers/specs/2026-07-07-user-growth-monetization-design.md`). The other Firebase products (Database/Firestore/Functions/Storage) remain unused leftovers from commit cad7b3c — don't add new usage of those
 
 ## Localization
 

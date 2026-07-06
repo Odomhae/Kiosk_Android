@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.odom.orderkiosk.MainActivity
+import com.odom.orderkiosk.utils.AnalyticsLogger
 import com.odom.orderkiosk.utils.MenuJsonParser
 import com.odom.orderkiosk.utils.TtsSettings
 import com.odom.orderkiosk.R
@@ -32,6 +33,15 @@ class FullMenuFragment : OrderChildrenBaseFragment() {
     private val menuJsonParser by lazy { MenuJsonParser(requireContext()) }
     private val adapter by lazy { ViewPagerAdapter() }
     private var copiedFoods : List<Food>? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // 메뉴 화면 진입 = 주문 흐름 시작 (뒤로가기 복귀 시에는 onCreate가 다시 불리지 않음)
+        if (savedInstanceState == null) {
+            AnalyticsLogger.logOrderStarted(requireContext())
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFullMenuBinding.inflate(layoutInflater, container, false)
