@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity(), RecognitionListener, TextToSpeech.OnIn
 
         val adView = AdView(this)
         adView.setAdSize(AdSize.MEDIUM_RECTANGLE)
-        adView.adUnitId = getString(R.string.TEST_banner_ad_unit_id)
+        adView.adUnitId = getString(R.string.REAL_banner_ad_unit_id)
         adView.loadAd(AdRequest.Builder().build())
 
         exitAdView = adView

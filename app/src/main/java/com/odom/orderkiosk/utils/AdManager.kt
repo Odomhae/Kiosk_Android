@@ -23,7 +23,7 @@ class AdManager(private val context: Context) {
     }
     
     fun loadInterstitialAd() {
-        val adUnitId = context.getString(com.odom.orderkiosk.R.string.TEST_FULLSCREEN_ad_unit_id)
+        val adUnitId = context.getString(com.odom.orderkiosk.R.string.REAL_FULLSCREEN_ad_unit_id)
 
         val adRequest = AdRequest.Builder().build()
         
