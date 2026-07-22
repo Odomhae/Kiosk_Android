@@ -40,7 +40,7 @@ class CategoryMenuFragment : OrderChildrenBaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            toolbar.setOnClickListener { requireActivity().onBackPressed() }
+            toolbar.setOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
             toolbar.title = when (type) {
                 IncompleteType.HamburgerSetSideMenu ->
                     "${food.name} " + getString(R.string.menu_side)

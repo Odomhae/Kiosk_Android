@@ -15,8 +15,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 .\gradlew.bat connectedAndroidTest  # Instrumented tests (device required)
 ```
 
-- **compileSdk / targetSdk:** 35, **minSdk:** 24 (Android 7.0+)
-- **Kotlin:** 1.8.20, **AGP:** 8.5.0, **Java target:** 17
+- **compileSdk / targetSdk:** 36, **minSdk:** 24 (Android 7.0+)
+- **Kotlin:** 1.8.20, **AGP:** 8.9.1, **Java target:** 17
 - ProGuard/R8 is **disabled** in release builds (`minifyEnabled false`)
 - View Binding and Kotlin Parcelize are enabled
 

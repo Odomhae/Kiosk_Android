@@ -7,6 +7,7 @@
 
     <style name="Theme.OrderKiosk" parent="Base.Theme.OrderKiosk" >
         <item name="colorPrimary">@android:color/holo_orange_dark</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
     <style name="OtherMessageCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
