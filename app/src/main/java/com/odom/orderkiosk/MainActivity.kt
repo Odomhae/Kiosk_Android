@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity(), RecognitionListener, TextToSpeech.OnIn
         if (!TtsSettings.isEnabled(this)) return
 
         textToSpeechReady.observe(this, object : androidx.lifecycle.Observer<Boolean> {
-            override fun onChanged(t: Boolean?) {
+            override fun onChanged(t: Boolean) {
                 if (t == true) {
                     textToSpeechReady.removeObserver(this)
 
